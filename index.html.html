@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Cooperative Intelligence Project | Infrastructure for the Many</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-indigo: #2d1b4e;
+            --primary-violet: #5b21b6;
+            --accent-amber: #f59e0b;
+            --accent-teal: #14b8a6;
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-900: #171717;
+            --gradient-hero: linear-gradient(135deg, #2d1b4e 0%, #5b21b6 50%, #7c3aed 100%);
+            --shadow-soft: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 40px rgba(91, 33, 182, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--neutral-900);
+            background: var(--neutral-50);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            color: var(--primary-indigo);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gradient-hero);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--neutral-900);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-violet);
+        }
+
+        .btn-primary {
+            background: var(--primary-violet);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-indigo);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-violet);
+            border: 2px solid var(--primary-violet);
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-violet);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 2rem 8rem;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(20, 184, 166, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.1); }
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .hero-content h1 span {
+            display: block;
+            font-style: normal;
+            font-size: 1.2rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            opacity: 0.9;
+            margin-top: 1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.9);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            max-width: 540px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-gold {
+            background: var(--accent-amber);
+            color: var(--primary-indigo);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-gold:hover {
+            background: #fbbf24;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.4);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            color: white;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            color: var(--accent-amber);
+        }
+
+        .stat-item p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .hero-visual {
+            position: relative;
+        }
+
+        .network-graphic {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 24px;
+            padding: 2rem;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--primary-violet);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: pulse 4s infinite;
+        }
+
+        .node:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+        .node:nth-child(2) { top: 60%; left: 30%; animation-delay: 1s; background: var(--accent-teal); color: white; }
+        .node:nth-child(3) { top: 30%; right: 20%; animation-delay: 2s; background: var(--accent-amber); color: var(--primary-indigo); }
+        .node:nth-child(4) { bottom: 20%; right: 30%; animation-delay: 3s; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .connection {
+            position: absolute;
+            height: 2px;
+            background: rgba(255,255,255,0.3);
+            transform-origin: left center;
+        }
+
+        /* Problem Section */
+        .problem {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(91, 33, 182, 0.1);
+            color: var(--primary-violet);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: var(--primary-indigo);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.25rem;
+            color: #666;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .problem-card {
+            padding: 2.5rem;
+            background: var(--neutral-50);
+            border-radius: 16px;
+            border-left: 4px solid var(--primary-violet);
+            transition: all 0.3s;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-indigo);
+        }
+
+        .problem-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        /* Solution Section */
+        .solution {
+            padding: 6rem 2rem;
+            background: var(--neutral-100);
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .solution-content h2 {
+            font-size: 3rem;
+            color: var(--primary-indigo);
+            margin-bottom: 1.5rem;
+        }
+
+        .solution-content > p {
+            font-size: 1.25rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        .feature-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: start;
+            gap: 1rem;
+        }
+
+        .feature-list li:before {
+            content: '✓';
+            color: var(--accent-teal);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .solution-visual {
+            background: white;
+            padding: 3rem;
+            border-radius: 24px;
+            box-shadow: var(--shadow-soft);
+            position: relative;
+        }
+
+        .coop-diagram {
+            text-align: center;
+        }
+
+        .center-hub {
+            width: 120px;
+            height: 120px;
+            background: var(--gradient-hero);
+            border-radius: 50%;
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .orbit-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .orbit-item {
+            background: var(--neutral-50);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-indigo);
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .orbit-item:hover {
+            border-color: var(--primary-violet);
+            transform: scale(1.05);
+        }
+
+        /* Capabilities Section */
+        .capabilities {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .capability-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .capability-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, white 100%);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .capability-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-hero);
+        }
+
+        .capability-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(91, 33, 182, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .capability-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-indigo);
+        }
+
+        .tech-stack {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .tech-tag {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        /* Traction Section */
+        .traction {
+            padding: 6rem 2rem;
+            background: var(--primary-indigo);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .traction::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .traction-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .traction-item {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .traction-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent-amber);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .traction-label {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        /* Investment Section */
+        .investment {
+            padding: 6rem 2rem;
+            background: var(--neutral-50);
+        }
+
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tier-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+            border: 2px solid transparent;
+        }
+
+        .tier-card.featured {
+            border-color: var(--primary-violet);
+            transform: scale(1.05);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .tier-card.featured::before {
+            content: 'Most Critical';
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-violet);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .tier-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .tier-amount {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-indigo);
+            margin-bottom: 0.5rem;
+        }
+
+        .tier-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-violet);
+            margin-bottom: 1rem;
+        }
+
+        .tier-description {
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .tier-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .tier-features li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tier-features li::before {
+            content: '→';
+            color: var(--accent-teal);
+            font-weight: 700;
+        }
+
+        /* Council Section */
+        .council {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .council-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .council-member {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #e0e7ff 0%, #c7d2fe 100%);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-violet);
+        }
+
+        .council-member h4 {
+            font-size: 1.1rem;
+            color: var(--primary-indigo);
+            margin-bottom: 0.25rem;
+        }
+
+        .council-member p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 2rem;
+            background: var(--gradient-hero);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--neutral-900);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 968px) {
+            .hero-container,
+            .solution-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .problem-grid,
+            .traction-grid,
+            .tiers-grid,
+            .council-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tier-card.featured {
+                transform: scale(1);
+                order: -1;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .capability-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">◉</div>
+                Cooperative Intelligence
+            </a>
+            <div class="nav-links">
+                <a href="#problem">The Crisis</a>
+                <a href="#solution">Our Model</a>
+                <a href="#capabilities">Technology</a>
+                <a href="#investment">Invest</a>
+                <a href="#contact" class="btn-primary">Join the Cooperative</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>
+                    Infrastructure for the Many
+                    <span>Building the Progressive Data Cooperative</span>
+                </h1>
+                <p class="hero-subtitle">
+                    We're creating ethical, open-source intelligence infrastructure to power the next generation of movement organizing—owned by organizers, governed by communities, and engineered for liberation.
+                </p>
+                <div class="hero-cta">
+                    <a href="#investment" class="btn-gold">Become a Founding Funder</a>
+                    <a href="#solution" class="btn-secondary" style="color: white; border-color: rgba(255,255,255,0.5);">Read Our Blueprint</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3 class="stat-number" data-target="50">0</h3>
+                        <p>Years of Combined<br>Organizing Experience</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="stat-number" data-target="100">0</h3>
+                        <p>Open Source<br>Tools Committed</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 class="stat-number" data-target="0">0</h3>
+                        <p>Data Breaches<br>Tolerated</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="network-graphic">
+                    <div class="node">Labor</div>
+                    <div class="node">Climate</div>
+                    <div class="node">Equity</div>
+                    <div class="node">Democracy</div>
+                    <svg style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;">
+                        <line x1="30%" y1="30%" x2="70%" y2="40%" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                        <line x1="40%" y1="70%" x2="70%" y2="70%" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                        <line x1="30%" y1="30%" x2="40%" y2="70%" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem" id="problem">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">The Asymmetry</span>
+                <h2>Why We Keep Losing the Infrastructure War</h2>
+                <p>While the right builds permanent authoritarian infrastructure, the left rents campaign tools and wonders why our power evaporates between elections.</p>
+            </div>
+            
+            <div class="problem-grid">
+                <div class="problem-card fade-in">
+                    <h3>The Extraction Economy</h3>
+                    <p>Current progressive data lives in Silicon Valley servers, mined by platforms that sell our attention to the highest bidder. Our movements are effectively taxed by the tech monopolies we oppose.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <h3>The Capability Gap</h3>
+                    <p>Conservative infrastructure has weaponized psychographics and network analysis to erode democracy. Progressive organizing still relies on 20th-century tactics while the opposition deploys 21st-century precision.</p>
+                </div>
+                <div class="problem-card fade-in">
+                    <h3>The Sustainability Crisis</h3>
+                    <p>Campaigns end. Staff disbands. Data disappears. We rebuild from zero every two years while the Heritage Foundation and Federalist Society operate on 50-year timelines.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution" id="solution">
+        <div class="container">
+            <div class="solution-grid">
+                <div class="solution-content fade-in">
+                    <span class="section-tag">The Alternative</span>
+                    <h2>A Cooperative Model for Movement Intelligence</h2>
+                    <p>We're not building a "progressive Cambridge Analytica." We're building its ethical inverse: open infrastructure owned by the people it serves.</p>
+                    
+                    <ul class="feature-list">
+                        <li><strong>Federated Architecture:</strong> Personal data stays on devices; only collective insights flow upward. cryptographically secured.</li>
+                        <li><strong>Open Source Everything:</strong> Algorithms audited by academics, code available to all progressive movements globally.</li>
+                        <li><strong>Consent by Design:</strong> Radical transparency in data collection with community veto power over all targeting strategies.</li>
+                        <li><strong>Economic Democracy:</strong> Worker-owned cooperative structure prevents the extractive dynamics of traditional political tech.</li>
+                    </ul>
+                    
+                    <a href="#" class="btn-primary">Download Our Technical Whitepaper</a>
+                </div>
+                
+                <div class="solution-visual fade-in">
+                    <div class="coop-diagram">
+                        <div class="center-hub">CO-OP</div>
+                        <div class="orbit-container">
+                            <div class="orbit-item">Community Organizers</div>
+                            <div class="orbit-item">Data Scientists</div>
+                            <div class="orbit-item">Policy Experts</div>
+                            <div class="orbit-item">Movement Lawyers</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; margin-top: 2rem; color: #666; font-style: italic;">
+                        Radical transparency meets radical capability
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section -->
+    <section class="capabilities" id="capabilities">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">The Stack</span>
+                <h2>Ethical Technology, Movement Power</h2>
+                <p>Enterprise-grade intelligence capabilities grounded in consent and community governance.</p>
+            </div>
+
+            <div class="capability-showcase">
+                <div class="capability-card fade-in">
+                    <div class="capability-icon">⚡</div>
+                    <h3>Network Mobilization Engine</h3>
+                    <p>Identifies community "bridge-builders"—the 5% of nodes who influence 60% of local behavior. Maps social capital in marginalized communities to resource distribution, not extraction.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Graph Analysis</span>
+                        <span class="tech-tag">Zero-Knowledge Proofs</span>
+                        <span class="tech-tag">Community APIs</span>
+                    </div>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon">🛡️</div>
+                    <h3>Counter-Disinformation Defense</h3>
+                    <p>Prebunking networks that inoculate communities against manipulation. Detects synthetic media and coordinated inauthentic behavior before it spreads.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">NLP Models</span>
+                        <span class="tech-tag">Bot Detection</span>
+                        <span class="tech-tag">Adversarial ML</span>
+                    </div>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon">🎯</div>
+                    <h3>Narrative Resonance System</h3>
+                    <p>Values-based messaging that matches moral foundations without manipulation. Dynamic story-banking with 10,000+ authenticated narratives tagged by emotional valence and cultural context.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Moral Foundations Theory</span>
+                        <span class="tech-tag">Sentiment Analysis</span>
+                        <span class="tech-tag">A/B Testing Framework</span>
+                    </div>
+                </div>
+
+                <div class="capability-card fade-in">
+                    <div class="capability-icon">🌐</div>
+                    <h3>Federated Organizing Cloud</h3>
+                    <p>Distributed infrastructure preventing single points of failure. Local chapters maintain autonomy while sharing aggregate insights. Censorship-resistant by design.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">IPFS</span>
+                        <span class="tech-tag">ActivityPub</span>
+                        <span class="tech-tag">Edge Computing</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traction Section -->
+    <section class="traction">
+        <div class="container">
+            <div class="section-header fade-in" style="color: white;">
+                <span class="section-tag" style="background: rgba(255,255,255,0.1); color: white;">Momentum</span>
+                <h2 style="color: white;">From Concept to Infrastructure</h2>
+                <p style="color: rgba(255,255,255,0.9);">We're not starting from zero. We're consolidating existing fragmented efforts into coherent power.</p>
+            </div>
+
+            <div class="traction-grid">
+                <div class="traction-item fade-in">
+                    <span class="traction-number">$2.4M</span>
+                    <span class="traction-label">Committed Seed Funding<br>from Family Foundations</span>
+                </div>
+                <div class="traction-item fade-in">
+                    <span class="traction-number">12</span>
+                    <span class="traction-label">Pilot Partners<br>(Unions & Community Orgs)</span>
+                </div>
+                <div class="traction-item fade-in">
+                    <span class="traction-number">3</span>
+                    <span class="traction-label">Cities in<br>Active Deployment</span>
+                </div>
+                <div class="traction-item fade-in">
+                    <span class="traction-number">89%</span>
+                    <span class="traction-label">Data Consent Rate<br>(vs. 23% industry avg)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investment Section -->
+    <section class="investment" id="investment">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Partnership</span>
+                <h2>Investment Tiers</h2>
+                <p>This is infrastructure, not charity. Join us as a founding funder to secure permanent progressive capacity.</p>
+            </div>
+
+            <div class="tiers-grid">
+                <div class="tier-card fade-in">
+                    <div class="tier-amount">$50K</div>
+                    <div class="tier-name">Movement Builder</div>
+                    <p class="tier-description">Support open-source tool development and community organizer training programs.</p>
+                    <ul class="tier-features">
+                        <li>Name on founding donor wall</li>
+                        <li>Quarterly technical briefings</li>
+                        <li>Early access to whitepapers</li>
+                        <li>Advisory council observer seat</li>
+                    </ul>
+                    <a href="#" class="btn-secondary" style="width: 100%; text-align: center;">Select This Tier</a>
+                </div>
+
+                <div class="tier-card featured fade-in">
+                    <div class="tier-amount">$250K</div>
+                    <div class="tier-name">Infrastructure Partner</div>
+                    <p class="tier-description">Fund a full regional deployment with dedicated data infrastructure and organizer cohort.</p>
+                    <ul class="tier-features">
+                        <li>All previous benefits</li>
+                        <li>Named regional lab (e.g., "The [Name] Community Data Lab")</li>
+                        <li>Annual strategic retreat invitation</li>
+                        <li>Cooperative voting membership</li>
+                        <li>Direct pipeline to partner orgs</li>
+                    </ul>
+                    <a href="#" class="btn-primary" style="width: 100%; text-align: center;">Become a Partner</a>
+                </div>
+
+                <div class="tier-card fade-in">
+                    <div class="tier-amount">$1M+</div>
+                    <div class="tier-name">Founding Architect</div>
+                    <p class="tier-description>Endow permanent capacity. Shape the governance structure and long-term strategic direction.</p>
+                    <ul class="tier-features">
+                        <li>All previous benefits</li>
+                        <li>Board of Directors seat</li>
+                        <li>Custom research agenda</li>
+                        <li>Legacy naming for core infrastructure component</li>
+                        <li>Perpetual data access for your institutional grantees</li>
+                    </ul>
+                    <a href="#" class="btn-secondary" style="width: 100%; text-align: center;">Schedule Briefing</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advisory Council -->
+    <section class="council">
+        <div class="container">
+            <div class="section-header fade-in">
+                <span class="section-tag">Governance</span>
+                <h2>Ethical Oversight</h2>
+                <p>Our Technical Ethics Council ensures capabilities never outpace consent.</p>
+            </div>
+
+            <div class="council-grid">
+                <div class="council-member fade-in">
+                    <div class="member-avatar">👤</div>
+                    <h4>Dr. Sarah Chen</h4>
+                    <p>Former EFF Technologist<br>Privacy Architecture Lead</p>
+                </div>
+                <div class="council-member fade-in">
+                    <div class="member-avatar">👤</div>
+                    <h4>Marcus Johnson</h4>
+                    <p>SEIU Data Director<br>Labor Movement Strategy</p>
+                </div>
+                <div class="council-member fade-in">
+                    <div class="member-avatar">👤</div>
+                    <h4>Prof. Aisha Rahman</h4>
+                    <p>Berkman Klein Center<br>Algorithmic Justice</p>
+                </div>
+                <div class="council-member fade-in">
+                    <div class="member-avatar">👤</div>
+                    <h4>David Park</h4>
+                    <p>Cooperative Economics<br>Democratic Governance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <h2>The Next Cycle Starts Now</h2>
+        <p>We have 18 months to build permanent infrastructure before the next electoral cycle. The technology is ready. The organizers are waiting. We need partners with vision.</p>
+        <div class="cta-buttons">
+            <a href="mailto:funders@coopintel.org" class="btn-gold">Schedule a Confidential Briefing</a>
+            <a href="#" class="btn-secondary" style="color: white; border-color: rgba(255,255,255,0.5);">Download Investor Deck</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2024 Cooperative Intelligence Project. A worker-owned cooperative.</p>
+            <p style="margin-top: 1rem; font-size: 0.8rem;">
+                All technology open source. All governance transparent. No surveillance capital.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+        // Animated counters
+        const animateCounter = (element, target) => {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + (target === 0 ? '' : '+');
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + (target === 0 ? '' : '+');
+                }
+            }, 30);
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target);
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach((el) => statsObserver.observe(el));
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
